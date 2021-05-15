@@ -1,0 +1,5 @@
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxModels\bin\Release\Models.dll
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxModels\bin\Release\Models.pdb
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxModels\obj\Release\DesafioNoxModels.csproj.CoreCompileInputs.cache
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxModels\obj\Release\Models.dll
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxModels\obj\Release\Models.pdb

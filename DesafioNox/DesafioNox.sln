@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioNox", "DesafioNox\DesafioNox.csproj", "{953C9AFD-F0F8-4B5C-A41C-C455900FF0F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioNoxData", "DesafioNoxData\DesafioNoxData.csproj", "{30D9C4E1-58BF-4A1A-A2C9-58B0EECD309A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioNoxModels", "DesafioNoxModels\DesafioNoxModels.csproj", "{CE749FDE-D222-46AB-BB57-E3A1DC913B5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioNoxApi", "DesafioNoxApi\DesafioNoxApi.csproj", "{A989A80C-F4C0-4ED4-9461-F463F18DA2F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{953C9AFD-F0F8-4B5C-A41C-C455900FF0F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{953C9AFD-F0F8-4B5C-A41C-C455900FF0F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{953C9AFD-F0F8-4B5C-A41C-C455900FF0F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{953C9AFD-F0F8-4B5C-A41C-C455900FF0F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D9C4E1-58BF-4A1A-A2C9-58B0EECD309A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D9C4E1-58BF-4A1A-A2C9-58B0EECD309A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D9C4E1-58BF-4A1A-A2C9-58B0EECD309A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D9C4E1-58BF-4A1A-A2C9-58B0EECD309A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE749FDE-D222-46AB-BB57-E3A1DC913B5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE749FDE-D222-46AB-BB57-E3A1DC913B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE749FDE-D222-46AB-BB57-E3A1DC913B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE749FDE-D222-46AB-BB57-E3A1DC913B5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A989A80C-F4C0-4ED4-9461-F463F18DA2F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A989A80C-F4C0-4ED4-9461-F463F18DA2F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A989A80C-F4C0-4ED4-9461-F463F18DA2F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A989A80C-F4C0-4ED4-9461-F463F18DA2F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DEE2F437-4024-4986-AA8E-C5C581CC114E}
+	EndGlobalSection
+EndGlobal

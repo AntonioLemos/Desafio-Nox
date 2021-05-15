@@ -1,0 +1,14 @@
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\DesafioNoxData.dll.config
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\DesafioNoxData.dll
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\DesafioNoxData.pdb
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\EntityFramework.dll
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\Models.dll
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\Models.pdb
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\EntityFramework.xml
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\obj\Debug\DesafioNoxData.csprojAssemblyReference.cache
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\obj\Debug\DesafioNoxData.csproj.CoreCompileInputs.cache
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\obj\Debug\DesafioNoxData.csproj.CopyComplete
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\obj\Debug\DesafioNoxData.dll
+C:\Users\anton\source\repos\DesafioNox\DesafioNoxData\obj\Debug\DesafioNoxData.pdb

@@ -1,0 +1,6 @@
+C:\Users\anton\source\repos\DesafioNox\Dominio\bin\Debug\Models.dll
+C:\Users\anton\source\repos\DesafioNox\Dominio\bin\Debug\Models.pdb
+C:\Users\anton\source\repos\DesafioNox\Dominio\obj\Debug\Models.csprojAssemblyReference.cache
+C:\Users\anton\source\repos\DesafioNox\Dominio\obj\Debug\Models.csproj.CoreCompileInputs.cache
+C:\Users\anton\source\repos\DesafioNox\Dominio\obj\Debug\Models.dll
+C:\Users\anton\source\repos\DesafioNox\Dominio\obj\Debug\Models.pdb

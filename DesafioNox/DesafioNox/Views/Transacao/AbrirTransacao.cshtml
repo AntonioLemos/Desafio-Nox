@@ -1,0 +1,104 @@
+﻿@model DesafioNox.Models.ModelView.TransacaoModelView
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    @Html.Hidden("IdUsuario")
+    @Html.Hidden("Saldo")
+    <h2>Abrir nova transação</h2>
+    <form id="form_transacao">
+        <div id="AlertOk" class="alert alert-success" role="alert" style="display: none">
+        </div>
+        <div id="AlertError" class="alert alert-danger" role="alert" style="display: none">
+        </div>
+        <div class="form-group">
+            <label for="valorTransacao">Valor:</label>
+            <input type="text" class="form-control" id="ValorTransacao" name="ValorTransacao" maxlength="12" value="R$0,0">
+        </div>
+        <div class="form-group">
+            <label for="valorTransacao">Ordem:</label>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradioOrdem" value="1"> Compra
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optradioOrdem" value="2"> Venda
+                </label>
+            </div>
+        </div>
+        <button id="abrirTransacaoBtn" type="button" class="btn btn-default">Abrir transação</button>
+    </form>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ValorTransacao").maskMoney({ showSymbol: true, symbol: "R$", decimal: ",", thousands: "." });
+
+        $("#abrirTransacaoBtn").click(function () {
+            postTransacao();
+        });
+        function postTransacao() {
+            Common.showDivAlert(false, "", "AlertOk");
+            Common.showDivAlert(false, "", "AlertError");
+
+            let valorTransacao = $("#ValorTransacao").val().replace(".", "").replace("R$", "");
+            let ordemTransacao = $("input[name='optradioOrdem']:checked").val();
+
+            let userId = $("#IdUsuario").val();
+
+            let dataToPost = { IdUsuario: userId, ValorTransacao: valorTransacao.replace(",", "."), IdOrdemTransacao: ordemTransacao };
+
+            let controller = "Transacao";
+            let method = "PostTransacao";
+
+            if (valorTransacao.replace(",", ".") <= 0) {
+                Common.showDivAlert(true, "Valor da transação não pode ser 0!", "AlertError");
+                return false;
+            }
+
+            if (ordemTransacao === undefined) {
+                Common.showDivAlert(true, "Selecione uma opção de ordem!", "AlertError");
+                return false;
+            }
+
+            Common.Ajax('POST', controller, method, dataToPost, successUserCreateHandler);
+        }
+
+        function successUserCreateHandler(response) {
+            let resposta = JSON.stringify(response);
+            let objResposta = JSON.parse(resposta);
+
+            if (objResposta.Mensagem === 'OK') {
+                Common.showDivAlert(true, "Transação aberta com sucesso!", "AlertOk");
+            } else {
+                Common.showDivAlert(true, objResposta.Mensagem, "AlertError");
+            }
+        }
+
+        function getUser(response) {
+            let controller = "Usuario";
+            let method = "GetUsuario";
+            Common.Ajax('GET', controller, method, "", successUsuarioCallBack);
+        }
+        
+
+        function successUsuarioCallBack(response) {
+            let resposta = JSON.stringify(response);
+            let objResposta = JSON.parse(resposta);
+
+            let userText = $("#IdUsuario");
+            let userSaldoText = $("#Saldo");
+
+            if (userText.length > 0 && userSaldoText.length > 0 && objResposta != undefined) {
+                userText.val(objResposta.Resposta.IdUsuario);
+                userSaldoText.val(objResposta.Resposta.SaldoUsuario.toFixed(10));
+            }
+        }
+
+        getUser();
+    });
+
+</script>

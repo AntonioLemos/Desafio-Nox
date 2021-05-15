@@ -1,0 +1,221 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @Html.Hidden("IdUsuario")
+    @Html.Hidden("Saldo")
+    <div class="collapse" id="collapseAlterarBuscar">
+        <div class="card card-body">
+            <form id="form_transacao">
+                <h3>Busca Transação:</h3>
+                <div id="AlertBuscaOk" class="alert alert-success" role="alert" style="display: none">
+                </div>
+                <div id="AlertBuscaError" class="alert alert-danger" role="alert" style="display: none">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Data Inicial e Data Final</span>
+                    </div>
+                    <input id="dataInicio" type="date" class="form-control">
+                    <input id="dataFim" type="date" class="form-control">
+                </div>
+                <br />
+                <button id="buscarTransacaoBtn" type="button" class="btn btn-primary">Buscar</button>
+                <button id="limpabuscarBtn" type="button" class="btn btn-primary">Limpar busca</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="collapse" id="collapseAlterarStatus">
+        <div class="card card-body">
+            <form id="form_transacao">
+                <h3>Alterar Status:</h3>
+                <div id="AlertStatusOk" class="alert alert-success" role="alert" style="display: none">
+                </div>
+                <div id="AlertStatusError" class="alert alert-danger" role="alert" style="display: none">
+                </div>
+                <label for="exampleFormControlSelect1">Selecione o novo status da transação:</label>
+                <select class="form-control" id="statusFormControlSelect1">
+                    <option value="2">EXECUTADA</option>
+                    <option value="3">REJEITADA</option>
+                </select>
+                <br />
+                <button id="alterarTransacaoBtn" type="button" class="btn btn-primary">Alterar</button>
+
+            </form>
+        </div>
+    </div>
+    <br />
+    <div class="overflow-auto">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Valor Transacao</th>
+                    <th scope="col">Data Transacao</th>
+                    <th scope="col">Ordem Transacao</th>
+                    <th scope="col">Status Transacao</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#collapseAlterarBuscar').collapse("show");
+        
+        $("body").delegate(".form-check-input", "click", function(){
+           let isCheked = $('.table').find("input[class='form-check-input']:checked").length > 0;
+            if (isCheked) {
+                $('#collapseAlterarStatus').collapse("show");
+                $('#collapseAlterarBuscar').collapse("hide");
+            } else {
+                $('#collapseAlterarStatus').collapse("hide");
+                $('#collapseAlterarBuscar').collapse("show");
+            }
+        });
+
+        $("#buscarTransacaoBtn").click(function () {
+            Common.showDivAlert(false, "", "AlertBuscaOk");
+            Common.showDivAlert(false, "", "AlertBuscaError");
+
+            let dataInicial = $("#dataInicio").val();
+            let dataFinal = $("#dataFim").val();
+            if (dataInicial == "" && dataFinal != '') {
+                Common.showDivAlert(true, "Selecione data de Inicio!", "AlertBuscaError");
+                return false;
+            }
+            buscaTransacoes("", dataInicial, dataFinal);
+        });
+
+        $("#limpabuscarBtn").click(function () {
+            let dataInicial = $("#dataInicio");
+            let dataFinal = $("#dataFim");
+            dataInicial.val("");
+            dataFinal.val("");
+        });
+
+        $("#alterarTransacaoBtn").click(function () {
+            Common.showDivAlert(false, "", "AlertStatusOk");
+            Common.showDivAlert(false, "", "AlertStatusError");
+            alterarStatusTransacoes();
+        });
+
+        function buscaTransacoes(idUser, dataInicio, dataFinal) {
+            let userId = $("#IdUsuario").val() === "" ? idUser : $("#IdUsuario").val();
+            var data = { userId: userId, dataInicio: dataInicio, dataFinal: dataFinal };
+
+            let controller = "Transacao";
+            let method = "GetTransacao";
+
+            Common.Ajax('GET', controller, method, data, successBuscaCallBack);
+        }
+
+        function successBuscaCallBack(response) {
+            let resposta = JSON.stringify(response);
+            let objResposta = JSON.parse(resposta);
+
+            if (objResposta.Mensagem === 'OK') {
+                addDadosTabela(objResposta.Resposta);               
+            } else {
+                Common.showDivAlert(true, objResposta.Mensagem, "AlertBuscaError");
+            }
+        }
+
+        function alterarStatusTransacoes() {
+            let userId = $("#IdUsuario").val() === "" ? idUser : $("#IdUsuario").val();
+
+            let checkeds = $('.table').find("input[class='form-check-input']:checked");
+            let statusSelect = $("#statusFormControlSelect1").val();
+            let listaIds  = [];
+    
+            $.each(checkeds, function (key, item) {
+                listaIds.push(item.value);
+            });
+            var data = { userId: userId, statusTransacao: statusSelect, listIds: listaIds };
+
+            let controller = "Transacao";
+            let method = "PostStatus";
+
+            Common.Ajax('POST', controller, method, data, successAlterarCallBack);
+        }
+
+        function successAlterarCallBack(response) {
+            let resposta = JSON.stringify(response);
+            let objResposta = JSON.parse(resposta);
+
+            if (objResposta.Mensagem === 'OK') {
+                addDadosTabela(objResposta.Resposta);               
+                Common.showDivAlert(true, "Status alterado com sucesso!", "AlertStatusOk");
+            } else {
+                Common.showDivAlert(true, objResposta.Mensagem, "AlertStatusError");
+            }
+        }
+
+        function getUser(response) {
+            let controller = "Usuario";
+            let method = "GetUsuario";
+            Common.Ajax('GET', controller, method, "", successUsuarioCallBack);
+        }
+
+        function successUsuarioCallBack(response) {
+            let resposta = JSON.stringify(response);
+            let objResposta = JSON.parse(resposta);
+
+            let userText = $("#IdUsuario");
+            let userSaldoText = $("#Saldo");
+
+            if (userText.length > 0 && userSaldoText.length > 0 && objResposta != undefined) {
+                userText.val(objResposta.Resposta.IdUsuario);
+                userSaldoText.val(objResposta.Resposta.SaldoUsuario.toFixed(10));
+                buscaTransacoes(objResposta.Resposta.IdUsuario);
+            }
+        }
+
+        function addDadosTabela(listData) {
+            if (listData.length > 0) {
+                let tableBodyLinha = $("table tbody tr");
+                tableBodyLinha.remove();
+
+                $.each(listData, function (key, item) {
+
+                    let inputCheckBox = '<th scope="row"> <input class="form-check-input" type="checkbox" value="' + item.IdTransacao + '" id="transacaoCheck' + item.IdTransacao + '"> </th>';
+                    let emailUsuario = '<td>' + item.Usuario.EmailUsuario + '</td>';
+                    let valorTransacao = '<td>' + item.ValorTransacao.toFixed(4) + '</td>';
+                    var formatDateHoraTransacao = new Date(parseInt(item.DataHoraTransacao.replace(/\/Date\((-?\d+)\)\//, '$1')));
+                    let dataHoraTransacao = '<td>' + formatDateHoraTransacao.toLocaleString() + '</td>';
+                    let ordemTransacao = '<td>' + item.OrdemTransacao.TipoOrdemTransacao + '</td>';
+                    let statusTransacao = '<td>' + item.StatusTransacao.StatusTransacaoDescricao + '</td>';
+                    let linhaTabela =
+                        '<tr>' + inputCheckBox
+                        + emailUsuario
+                        + valorTransacao
+                        + dataHoraTransacao
+                        + ordemTransacao
+                        + statusTransacao
+                        + '</tr>';
+
+
+                    let tableBody = $("table tbody");
+
+                    tableBody.append(linhaTabela);
+                }); 
+
+            } else {
+                let tableBody = $("table tbody");
+                let tableBodyLinha = $("table tbody tr");
+                tableBodyLinha.remove();
+                tableBody.append(' <tr> <th scope="row"> </th> <td> Não há resultados para pesquisa! </td>  </tr>');
+            }         
+        }
+
+        getUser();
+
+    });
+
+</script>
